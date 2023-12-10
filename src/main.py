@@ -1,9 +1,5 @@
-from training \
-    import training
-
-from evaluation \
-    import evaluation
-
+from stage \
+    import training, evaluation
 
 def main():
     evaluation()

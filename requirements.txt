@@ -1,0 +1,6 @@
+pytest
+numpy
+tensorrt
+keras
+tensorflow
+wandb

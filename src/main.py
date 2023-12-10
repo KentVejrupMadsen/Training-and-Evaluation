@@ -1,5 +1,14 @@
+from training \
+    import training
+
+from evaluation \
+    import evaluation
+
+
 def main():
-    print('main')
+    evaluation()
+    training()
+    evaluation()
 
 
 if __name__ == '__main__':

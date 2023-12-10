@@ -2,5 +2,6 @@ pytest
 numpy
 tensorrt
 keras
+keras-cv
 tensorflow
 wandb

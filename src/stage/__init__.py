@@ -1,5 +1,5 @@
-from src.stage.training \
+from stage.training \
     import training
 
-from src.stage.evaluation \
+from stage.evaluation \
     import evaluation

@@ -1,5 +1,9 @@
-from stage \
-    import training, evaluation
+from stage      \
+    import      \
+    training,   \
+    evaluation
+
+import launch
 
 def main():
     evaluation()
@@ -8,4 +12,5 @@ def main():
 
 
 if __name__ == '__main__':
+    launch.initialise()
     main()

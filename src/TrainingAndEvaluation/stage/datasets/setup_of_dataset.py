@@ -18,6 +18,7 @@ from TrainingAndEvaluation.stage \
         get_label_jpg
 )
 
+
 def is_file_jpg(
     file_name: str
 ) -> bool:
@@ -30,6 +31,7 @@ def is_file_jpg(
             get_label_jpg()
         )
     )
+
 
 def setup_of_paths_to_dataset(
     location_of_dataset: str
@@ -66,6 +68,7 @@ def setup_of_paths_to_dataset(
         dataset_annotation_path,
         dataset_images_path
     )
+
 
 def retrieve_annotations(
     location: str
@@ -104,7 +107,10 @@ def retrieve_images(
         location
     ):
         for file in files:
-            full_path = join(root, file)
+            full_path = join(
+                root,
+                file
+            )
 
             tmp_filename: str = file.lower()
 
@@ -165,22 +171,32 @@ def parsing_annotation(
             cls
         )
 
-        bounding_box = obj.find("bndbox")
+        bounding_box = obj.find(
+            "bndbox"
+        )
 
         xMin: float = float(
-            bounding_box.find('xmin').text
+            bounding_box.find(
+                'xmin'
+            ).text
         )
 
         yMin: float = float(
-            bounding_box.find('ymin').text
+            bounding_box.find(
+                'ymin'
+            ).text
         )
 
         xMax: float = float(
-            bounding_box.find('xmax').text
+            bounding_box.find(
+                'xmax'
+            ).text
         )
 
         yMax: float = float(
-            bounding_box.find('ymax').text
+            bounding_box.find(
+                'ymax'
+            ).text
         )
 
         boxes.append(
@@ -196,6 +212,7 @@ def parsing_annotation(
         'boxes': boxes,
         'classes': classes
     }
+
 
 def parsing_for_annotations(
     dictionary: dict

@@ -48,3 +48,16 @@ def set_location_to_validation_data(
 ) -> None:
     global location_to_validation_dataset
     location_to_validation_dataset = update_with_location
+
+
+classes: list = list()
+
+def get_classes() -> list:
+    global classes
+    return classes
+
+def set_classes(
+    value: list
+) -> None:
+    global classes
+    classes = value

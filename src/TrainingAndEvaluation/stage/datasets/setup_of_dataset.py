@@ -152,10 +152,16 @@ def parsing_annotation(
     location_for_annotation: str
 ) -> dict:
     import xml.etree.ElementTree as eT
+
     tree = eT.parse(
         location_for_annotation
     )
+
     root = tree.getroot()
+
+    filename = root.find(
+        'filename'
+    ).text
 
     boxes = []
     classes = []
@@ -209,6 +215,7 @@ def parsing_annotation(
         )
 
     return {
+        'path': filename,
         'boxes': boxes,
         'classes': classes
     }

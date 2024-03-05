@@ -2,7 +2,7 @@ from TrainingAndEvaluation.stage.datasets.setup_of_dataset \
     import (
         setup_of_paths_to_dataset,
         generate_dataset_setup,
-        parsing_for_annotations
+        parsing_annotation
 )
 
 test_location: str = '/mnt/d/Workspace/KentVejrupMadsen/Training And Evaluation/dataset'
@@ -27,22 +27,16 @@ def test_generation_of_dataset_setup() -> None:
 
     assert isinstance(
         result,
-        dict
+        tuple
     )
 
 def test_parsing_annotations() -> None:
     global test_location
 
-    file_locations: dict = generate_dataset_setup(
+    file_locations: tuple = generate_dataset_setup(
         test_location
     )
 
-    dataset = parsing_for_annotations(
-        file_locations
-    )
-
-    print(
-        dataset
-    )
+    print(file_locations)
 
     assert True

@@ -97,36 +97,9 @@ def retrieve_annotations(
 
     return annotations
 
-
-def retrieve_images(
-    location: str
-) -> list:
-    images: list = list()
-
-    for root, dirs, files in walk(
-        location
-    ):
-        for file in files:
-            full_path = join(
-                root,
-                file
-            )
-
-            tmp_filename: str = file.lower()
-
-            if is_file_jpg(
-                tmp_filename
-            ):
-                images.append(
-                    full_path
-                )
-
-    return images
-
-
 def generate_dataset_setup(
     location_of_dataset: str
-) -> dict:
+) -> tuple:
     dataset_path = setup_of_paths_to_dataset(
         location_of_dataset
     )
@@ -135,22 +108,23 @@ def generate_dataset_setup(
         dataset_path[0]
     )
 
-    images = retrieve_images(
-        dataset_path[1]
-    )
-
     annotations.sort()
-    images.sort()
 
-    return {
-        get_label_annotations(): annotations,
-        get_label_images(): images
-    }
+    for idx in range(len(annotations)):
+        annotations[idx] = parsing_annotation(annotations[idx])
+
+        file_name: str = annotations[idx][0]
+        full_path_to_image: str = join(location_of_dataset, get_label_images())
+        full_path_to_image = join(full_path_to_image, file_name)
+        annotations[idx][0] = full_path_to_image
+
+    return tuple(annotations)
+
 
 
 def parsing_annotation(
     location_for_annotation: str
-) -> dict:
+) -> list:
     import xml.etree.ElementTree as eT
 
     tree = eT.parse(
@@ -163,8 +137,8 @@ def parsing_annotation(
         'filename'
     ).text
 
-    boxes = []
-    classes = []
+    boxes: list = []
+    classes: list = []
 
     for obj in root.iter(
         "object"
@@ -214,38 +188,6 @@ def parsing_annotation(
             ]
         )
 
-    return {
-        'path': filename,
-        'boxes': boxes,
-        'classes': classes
-    }
-
-
-def parsing_for_annotations(
-    dictionary: dict
-) -> dict:
-    returnable: dict = dictionary
-
-    for idx in range(
-        len(
-            returnable[
-                get_label_annotations()
-            ]
-        )
-    ):
-        annotation_path = returnable[
-            get_label_annotations()
-        ][idx]
-
-        annotation = parsing_annotation(
-            annotation_path
-        )
-
-        returnable[
-            get_label_annotations()
-        ][idx] = annotation
-
-
-    return returnable
+    return [filename, boxes, classes]
 
 
